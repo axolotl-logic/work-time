@@ -20,6 +20,8 @@ function VisualTimer({
   );
 }
 
+// TODO: A button that says "Hearts!" that people can spam.
+
 export default function HomePage() {
   const [status, setStatus] = useState<"work" | "break">("work");
   const [mins, setMins] = useState(0);
@@ -36,11 +38,11 @@ export default function HomePage() {
       setMins(WORK_LENGTH - mins_after_hour);
     }
 
-    const secs_before_min = 59 - (Math.floor(now / 1000 / 60 / 60) % 60);
+    const secs_before_min = 59 - (Math.floor(now / 60 / 60) % 60);
     setSecs(secs_before_min);
-  }, 500);
+  }, 300);
 
-  const progress = mins / (status == "work" ? WORK_LENGTH : BREAK_LENGTH) * 100;
+  const progress = 100 - mins / (status == "work" ? WORK_LENGTH : BREAK_LENGTH) * 100;
 
   return (
     <main className="flex font-mono uppercase min-h-screen flex-col items-center justify-center gap-5">
