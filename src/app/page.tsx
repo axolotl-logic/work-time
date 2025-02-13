@@ -40,7 +40,7 @@ export default function HomePage() {
 
     const secs_before_min = 59 - (Math.floor(now / 60 / 60) % 60);
     setSecs(secs_before_min);
-  }, 300);
+  }, 100);
 
   const progress = 100 - mins / (status == "work" ? WORK_LENGTH : BREAK_LENGTH) * 100;
 
