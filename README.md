@@ -1,29 +1,41 @@
-# Create T3 App
+# Perpetual Sprint
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Overview [![Discord](https://img.shields.io/discord/1338638342493048844?label=Discord&logo=discord)](https://discord.gg/ewM37225Xx) [![CI/CD](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml) [![Linting](https://github.com/axolotl-logic/work-buddies/actions/workflows/lint.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/linting.yml)
 
-## What's next? How do I make an app with this?
+A simple visual timer that synchronizes people around the world in
+alternating periods of work and break.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Great for tablets, mobile devices, and screen installations!
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Quickstart
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+## See Also
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+[Organization's Site](https://axolotl-logic.io/)
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Support
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Need help? Ask on our [Discord](https://discord.gg/ewM37225Xx)!
 
-## How do I deploy this?
+### Contributing
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Code Support
+
+I read all pull requests and issues!
+
+## Financial Support
+
+The most effective way of contributing to this project is through financial support.
+This increases the percentage of my time I am able to work on open source projects.
+The more one project gets love, the more work I put into it.
+
+Here's a nifty badge to give me money [![Patreon patrons](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Daxolotl-logic%26type%3Dpatrons)](https://www.patreon.com/axolotl-logic) and one for Liberapay [![Liberapay patrons](https://img.shields.io/liberapay/patrons/axolotl-logic)](https://en.liberapay.com/Axolotl-Logic)
+
+$$
+\text{$Muse$ $\wedge$ $Manifest$ $\wedge$ $Maintain$}
+$$
