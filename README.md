@@ -4,7 +4,7 @@
 
 ## Overview [![Discord](https://img.shields.io/discord/1338638342493048844?label=Discord&logo=discord)](https://discord.gg/ewM37225Xx) [![CI/CD](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml) [![Linting](https://github.com/axolotl-logic/work-buddies/actions/workflows/lint.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/linting.yml)
 
-A minimalist distributed. visual timer that synchronizes people around the world in
+A minimalist distributed visual timer that synchronizes people around the world in
 alternating periods of work and break.
 
 Great for tablets, mobile devices, and screen installations!
