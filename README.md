@@ -1,4 +1,4 @@
-1# Eternal Work Buddies
+# Eternal Work Buddies
 
 [Join us](https://eternal.axolotl-logic.io/) in the live instance! or join the [![Discord](https://img.shields.io/discord/1338638342493048844?label=Discord&logo=discord)](https://discord.gg/ewM37225Xx) and be part of the growing community. 
 
