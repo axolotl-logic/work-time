@@ -1,8 +1,8 @@
-# Eternal Work Buddies
+1# Eternal Work Buddies
 
-[Join us](https://eternal.axolotl-logic.io/) in the live instance!
+[Join us](https://eternal.axolotl-logic.io/) in the live instance! or join the [![Discord](https://img.shields.io/discord/1338638342493048844?label=Discord&logo=discord)](https://discord.gg/ewM37225Xx) and be part of the growing community. 
 
-## Overview [![Discord](https://img.shields.io/discord/1338638342493048844?label=Discord&logo=discord)](https://discord.gg/ewM37225Xx) [![CI/CD](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml) [![Linting](https://github.com/axolotl-logic/work-buddies/actions/workflows/lint.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/linting.yml)
+## Overview 1 [![CI/CD](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/tests.yml) [![Linting](https://github.com/axolotl-logic/work-buddies/actions/workflows/lint.yml/badge.svg)](https://github.com/axolotl-logic/work-buddies/actions/workflows/linting.yml)
 
 A minimalist distributed visual timer that synchronizes people around the world in
 alternating periods of work and break.
@@ -26,11 +26,11 @@ Need help? Ask on our [Discord](https://discord.gg/ewM37225Xx)!
 
 ### Contributing
 
-## Code Support
+#### Code Support
 
 I read all pull requests and issues!
 
-## Financial Support
+#### Financial Support
 
 The most effective way of contributing to this project is through financial support.
 This increases the percentage of my time I am able to work on open source projects.
