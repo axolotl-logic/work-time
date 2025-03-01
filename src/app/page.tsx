@@ -116,7 +116,7 @@ export default function HomePage() {
               {mins}:{String(secs).padStart(2, "0")}
             </div>
             {others.status == "active" && (
-              <p className="text-lg">
+              <p className="animate-fade-in text-lg">
                 {status == "work" ? "Working" : "Partying"} with {others.count}{" "}
                 others.
               </p>
