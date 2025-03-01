@@ -8,7 +8,21 @@ export default {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
+      animation: {
+        "fade-in": "fadeIn 1s ease-in",
+      },
+      // that is actual animation
+      keyframes: {
+        fadeIn: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "100",
+          },
+        },
+      },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
 } satisfies Config;
