@@ -106,17 +106,17 @@ export default function HomePage() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-center gap-5 overflow-hidden bg-gray-950 font-mono lowercase`}
+      className={`flex min-h-screen flex-col items-center justify-center gap-5 overflow-hidden bg-gray-950 font-mono lowercase text-gray-100`}
     >
       {status !== "loading" && (
         <div className={`animate-fade-in flex flex-col gap-8`}>
           <VisualTimer status={status} progress={progress} />
           <div className="flex flex-col flex-wrap items-center justify-between gap-2">
-            <div className="font-mono text-2xl text-gray-100">
+            <div className="font-mono text-2xl">
               {mins}:{String(secs).padStart(2, "0")}
             </div>
             {others.status == "active" && (
-              <p className="animate-fade-in text-lg">
+              <p className="animate-fade-in text-lg text-gray-100/80">
                 {status == "work" ? "Working" : "Partying"} with {others.count}{" "}
                 others.
               </p>
