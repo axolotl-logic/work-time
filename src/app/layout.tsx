@@ -16,7 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        {children}
+        <main
+          className={`h-dvh overflow-hidden bg-gray-950 lowercase text-gray-100`}
+        >
+          {children}
+        </main>
         <Analytics />
       </body>
     </html>

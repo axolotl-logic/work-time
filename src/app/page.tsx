@@ -19,10 +19,10 @@ function VisualTimer({
   let radialColor: string;
   switch (status) {
     case "break":
-      radialColor = "text-secondary";
+      radialColor = "text-pink-400";
       break;
     case "work":
-      radialColor = "text-primary";
+      radialColor = "text-purple-300";
       break;
   }
 
@@ -64,19 +64,25 @@ export default function HomePage() {
 
   useInterval(() => {
     const now = Date.now();
-    const mins_after_hour = Math.floor(now / 1000 / 60) % 60;
+    const mins_epoch = now / 1000 / 60;
+    const mins_epoch_whole = Math.floor(mins_epoch);
+    const mins_after_hour =
+      mins_epoch - mins_epoch_whole + (mins_epoch_whole % 60);
+
     if (mins_after_hour > WORK_LENGTH) {
       setStatus("break");
-      setMins(WORK_LENGTH + BREAK_LENGTH - mins_after_hour);
+      setMins(mins_after_hour - WORK_LENGTH);
     } else {
       setStatus("work");
-      setMins(WORK_LENGTH - mins_after_hour);
+      setMins(mins_after_hour);
     }
-    setSecs(59 - Math.floor((Date.now() / 1000) % 60));
+    setSecs(59 - Math.floor((now / 1000) % 60));
   }, 50);
 
   const progress =
-    100 - (mins / (status == "work" ? WORK_LENGTH : BREAK_LENGTH)) * 100;
+    status === "work"
+      ? (mins / WORK_LENGTH) * 100
+      : (mins / BREAK_LENGTH) * 100;
 
   const [others, setOthers] = useState<{
     count: number;
@@ -105,25 +111,29 @@ export default function HomePage() {
   useEffect(sync, [sync]);
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-center gap-5 overflow-hidden bg-gray-950 font-mono lowercase text-gray-100`}
-    >
+    <>
       {status !== "loading" && (
-        <div className={`animate-fade-in flex flex-col gap-8`}>
+        <div
+          className={`flex size-full animate-fade-in flex-col items-center justify-center gap-8`}
+        >
           <VisualTimer status={status} progress={progress} />
           <div className="flex flex-col flex-wrap items-center justify-between gap-2">
             <div className="font-mono text-2xl">
-              {mins}:{String(secs).padStart(2, "0")}
+              {Math.floor(mins)}:{String(secs).padStart(2, "0")}
             </div>
-            {others.status == "active" && (
-              <p className="animate-fade-in text-lg text-gray-100/80">
-                {status == "work" ? "Working" : "Partying"} with {others.count}{" "}
-                others.
-              </p>
-            )}
+            <p className="text-lg italic">
+              {others.status === "active" ? (
+                <span className="animate-fade-in-slow">
+                  {status === "work" ? "Working" : "Partying"}
+                  {others.status === "active" && ` with ${others.count} others`}
+                </span>
+              ) : (
+                <span className="opacity-0">Loading...</span>
+              )}
+            </p>
           </div>
         </div>
       )}
-    </main>
+    </>
   );
 }
