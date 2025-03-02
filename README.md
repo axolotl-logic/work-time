@@ -24,20 +24,8 @@ npm run dev
 
 Need help? Ask on our [Discord](https://discord.gg/ewM37225Xx)!
 
-### Contributing
-
-#### Code Support
+## Contributing
 
 I read all pull requests and issues!
 
-#### Financial Support
-
-The most effective way of contributing to this project is through financial support.
-This increases the percentage of my time I am able to work on open source projects.
-The more one project gets love, the more work I put into it.
-
-Here's a nifty badge to give me money [![Patreon patrons](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Daxolotl-logic%26type%3Dpatrons)](https://www.patreon.com/axolotl-logic) and one for Liberapay [![Liberapay patrons](https://img.shields.io/liberapay/patrons/axolotl-logic)](https://en.liberapay.com/Axolotl-Logic)
-
-$$
-\text{$Muse$ $\wedge$ $Manifest$ $\wedge$ $Maintain$}
-$$
+Here's a nifty badge to support my work [![Patreon patrons](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Daxolotl-logic%26type%3Dpatrons)](https://www.patreon.com/axolotl-logic) and one for Liberapay [![Liberapay patrons](https://img.shields.io/liberapay/patrons/axolotl-logic)](https://en.liberapay.com/Axolotl-Logic)
