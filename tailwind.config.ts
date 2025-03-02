@@ -9,7 +9,8 @@ export default {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
       animation: {
-        "fade-in": "fadeIn 1s ease-in",
+        "fade-in": "fadeIn 0.25s ease-in",
+        "fade-in-slow": "fadeIn 2s ease-in",
       },
       // that is actual animation
       keyframes: {

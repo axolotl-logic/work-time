@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <main
-          className={`h-dvh overflow-hidden bg-gray-950 lowercase text-gray-100`}
+          className={`h-screen overflow-hidden bg-gray-950 lowercase text-gray-100`}
         >
           {children}
         </main>
