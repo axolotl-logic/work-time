@@ -58,6 +58,7 @@ function useUserId(): string {
 
 export default function HomePage() {
   const [status, setStatus] = useState<"loading" | "work" | "break">("loading");
+  const [progress, setProgress] = useState<number>(0);
   const [mins, setMins] = useState(0);
   const [secs, setSecs] = useState(0);
   const userId = useUserId();
@@ -70,19 +71,18 @@ export default function HomePage() {
       mins_epoch - mins_epoch_whole + (mins_epoch_whole % 60);
 
     if (mins_after_hour > WORK_LENGTH) {
+      const breakMin = BREAK_LENGTH + WORK_LENGTH - mins_after_hour;
+      setMins(breakMin);
       setStatus("break");
-      setMins(mins_after_hour - WORK_LENGTH);
+      setProgress(breakMin / BREAK_LENGTH);
     } else {
+      const workMin = WORK_LENGTH - mins_after_hour;
       setStatus("work");
-      setMins(mins_after_hour);
+      setProgress(workMin / WORK_LENGTH);
+      setMins(workMin);
     }
     setSecs(59 - Math.floor((now / 1000) % 60));
   }, 50);
-
-  const progress =
-    status === "work"
-      ? (mins / WORK_LENGTH) * 100
-      : (mins / BREAK_LENGTH) * 100;
 
   const [others, setOthers] = useState<{
     count: number;
