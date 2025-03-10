@@ -1,139 +1,37 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import useInterval from "use-interval";
-import { useLocalStorage } from "usehooks-ts";
-import { ping } from "~/server/actions";
-import { v4 as uuidv4 } from "uuid";
-
-const WORK_LENGTH = 50;
-const BREAK_LENGTH = 60 - WORK_LENGTH;
-
-function VisualTimer({
-  status,
-  progress,
-}: {
-  status: "break" | "work";
-  progress: number;
-}) {
-  let radialColor: string;
-  switch (status) {
-    case "break":
-      radialColor = "text-pink-400";
-      break;
-    case "work":
-      radialColor = "text-purple-300";
-      break;
-  }
-
-  return (
-    <div
-      className={`radial-progress text-5xl ${radialColor}`}
-      style={
-        {
-          "--value": progress,
-          "--size": "300px",
-          "--thickness": "35px",
-        } as React.CSSProperties
-      }
-      role="progressbar"
-    >
-      {status}
-    </div>
-  );
-}
-
-function useUserId(): string {
-  const [userId, setUserId] = useLocalStorage("function:useUserId", () =>
-    uuidv4(),
-  );
-  useEffect(() => {
-    setUserId(userId);
-  }, [userId, setUserId]);
-
-  return userId;
-}
-
-// TODO: A button that says "Hearts!" that people can spam.
+import Image from "next/image";
+import { TimerForm } from "~/components/timer-form";
 
 export default function HomePage() {
-  const [status, setStatus] = useState<"loading" | "work" | "break">("loading");
-  const [progress, setProgress] = useState<number>(0);
-  const [mins, setMins] = useState(0);
-  const [secs, setSecs] = useState(0);
-  const userId = useUserId();
-
-  useInterval(() => {
-    const now = Date.now();
-    const mins_epoch = now / 1000 / 60;
-    const mins_epoch_whole = Math.floor(mins_epoch);
-    const mins_after_hour =
-      mins_epoch - mins_epoch_whole + (mins_epoch_whole % 60);
-
-    if (mins_after_hour > WORK_LENGTH) {
-      const breakMin = BREAK_LENGTH + WORK_LENGTH - mins_after_hour;
-      setMins(breakMin);
-      setStatus("break");
-      setProgress(breakMin / BREAK_LENGTH);
-    } else {
-      const workMin = WORK_LENGTH - mins_after_hour;
-      setStatus("work");
-      setProgress(workMin / WORK_LENGTH);
-      setMins(workMin);
-    }
-    setSecs(59 - Math.floor((now / 1000) % 60));
-  }, 50);
-
-  const [others, setOthers] = useState<{
-    count: number;
-    status: "loading" | "offline" | "active";
-  }>({ count: 0, status: "loading" });
-
-  const sync = useCallback(() => {
-    ping(userId)
-      .then(({ buddiesCount }) =>
-        setOthers((oldOthers) => ({
-          ...oldOthers,
-          status: "active",
-          count: buddiesCount,
-        })),
-      )
-      .catch(() =>
-        setOthers((oldOthers) => ({
-          ...oldOthers,
-          status: "offline",
-          count: 0,
-        })),
-      );
-  }, [userId, setOthers]);
-
-  useInterval(sync, 1000 * 60 * 10);
-  useEffect(sync, [sync]);
-
   return (
-    <>
-      {status !== "loading" && (
-        <div
-          className={`flex size-full animate-fade-in flex-col items-center justify-center gap-8`}
-        >
-          <VisualTimer status={status} progress={progress} />
-          <div className="flex flex-col flex-wrap items-center justify-between gap-2">
-            <div className="font-mono text-2xl">
-              {Math.floor(mins)}:{String(secs).padStart(2, "0")}
-            </div>
-            <p className="text-lg italic">
-              {others.status === "active" ? (
-                <span className="animate-fade-in-slow">
-                  {status === "work" ? "Working" : "Partying"}
-                  {others.status === "active" && ` with ${others.count} others`}
-                </span>
-              ) : (
-                <span className="opacity-0">Loading...</span>
-              )}
-            </p>
+    <main className="flex size-full flex-wrap-reverse justify-center gap-8 p-16">
+      <div className="prose flex flex-col">
+        <h1 className="border-primary border-t-2 border-solid pt-6">
+          Get ready to work!
+        </h1>
+        <div className="flex flex-wrap items-center self-center">
+          <Image
+            className="hidden sm:block"
+            alt="adorable axolotl"
+            src="/mascot.png"
+            width="240"
+            height="393"
+          />
+          <div className="max-w-md">
+            <TimerForm />
           </div>
         </div>
-      )}
-    </>
+        <p className="border-primary border-b-2 border-solid pb-4 text-justify">
+          Our purpose is to guide you through work and break periods with a
+          clutter-free timer. We embrace minimalism and will always be ad-free,
+          allowing you to focus on the task at hand.
+          <br />
+          <br />
+          In addition, we provide quiet coworking and digital body doubling with
+          shared timers in order to synchronize work and break cycles.
+        </p>
+      </div>
+    </main>
   );
 }
