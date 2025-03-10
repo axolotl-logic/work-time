@@ -10,7 +10,7 @@ export default function HomePage() {
         <h1 className="border-primary border-t-2 border-solid pt-6">
           Get ready to work!
         </h1>
-        <div className="flex flex-wrap items-center self-center">
+        <div className="flex items-center self-center">
           <Image
             className="hidden sm:block"
             alt="adorable axolotl"

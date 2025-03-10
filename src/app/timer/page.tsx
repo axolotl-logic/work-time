@@ -6,7 +6,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { ping } from "~/server/actions";
 import { v4 as uuidv4 } from "uuid";
 import { padTime, splitTimeMs } from "~/lib/time";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
