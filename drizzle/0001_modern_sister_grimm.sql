@@ -1,0 +1,2 @@
+ALTER TABLE "perpetual-sprint_announaces" ADD COLUMN "work_length" integer DEFAULT 0 NOT NULL;--> statement-breakpoint
+ALTER TABLE "perpetual-sprint_announaces" ADD COLUMN "break_length" integer DEFAULT 0 NOT NULL;

@@ -2,11 +2,13 @@
 
 import { db } from "~/server/db";
 import { announces } from "../db/schema";
-import { count, gt, sql } from "drizzle-orm";
+import { and, count, eq, gt, sql } from "drizzle-orm";
 import { z } from "zod";
 
 export async function ping(
   unsafeId: string,
+  workLength: number,
+  breakLength: number,
 ): Promise<{ buddiesCount: number }> {
   const sessionCutoff = new Date(Date.now() - 1000 * 60 * 60);
   const { data: id, error } = z.string().uuid().safeParse(unsafeId);
@@ -18,6 +20,8 @@ export async function ping(
   await db
     .insert(announces)
     .values({
+      workLength,
+      breakLength,
       id: id,
       pingedCount: 1,
       lastPingedAt: now,
@@ -25,6 +29,8 @@ export async function ping(
     .onConflictDoUpdate({
       target: announces.id,
       set: {
+        workLength,
+        breakLength,
         pingedCount: sql`${announces.pingedCount} + 1`,
         lastPingedAt: new Date(),
       },
@@ -33,7 +39,13 @@ export async function ping(
   const buddies = await db
     .select({ count: count() })
     .from(announces)
-    .where(gt(announces.lastPingedAt, sessionCutoff));
+    .where(
+      and(
+        gt(announces.lastPingedAt, sessionCutoff),
+        eq(announces.workLength, workLength),
+        eq(announces.breakLength, breakLength),
+      ),
+    );
   if (!buddies?.[0]) {
     throw Error("Unexpected response from database");
   }

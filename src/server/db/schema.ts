@@ -24,4 +24,6 @@ export const announces = createTable("announaces", {
     () => new Date(),
   ),
   pingedCount: integer("pinged_count").default(0).notNull(),
+  workLength: integer("work_length").default(0).notNull(),
+  breakLength: integer("break_length").default(0).notNull(),
 });

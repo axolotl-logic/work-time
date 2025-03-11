@@ -111,7 +111,7 @@ export default function Page() {
   }>({ count: 0, status: "loading" });
 
   const syncWithServer = useCallback(() => {
-    ping(userId)
+    ping(userId, workLength, breakLength)
       .then(({ buddiesCount }) =>
         setOthers((oldOthers) => ({
           ...oldOthers,
@@ -126,7 +126,7 @@ export default function Page() {
           count: 0,
         })),
       );
-  }, [userId, setOthers]);
+  }, [userId, breakLength, workLength, setOthers]);
 
   useInterval(syncWithServer, 1000 * 60 * 10);
   useEffect(syncWithServer, [syncWithServer]);
@@ -147,6 +147,7 @@ export default function Page() {
           {others.status === "active" ? (
             <span className="animate-fade-in-slow">
               {status === "work" ? "Working" : "Partying"}
+              {" in this room "}
               {others.status === "active" && ` with ${others.count} others`}
             </span>
           ) : (
