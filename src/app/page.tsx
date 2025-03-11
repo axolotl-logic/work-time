@@ -28,7 +28,10 @@ export default function HomePage() {
         <p className="border-secondary border-b-2 border-solid pb-4 text-justify">
           Our purpose is to guide you through work and break periods with a
           clutter-free timer. We embrace minimalism and will always be{" "}
-          <Link className="text-primary" href="/donate">
+          <Link
+            className="text-primary"
+            href="https://github.com/sponsors/axolotl-logic"
+          >
             ad-free
           </Link>
           , allowing you to focus on the task at hand and not annoying ads.

@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <div
-          className={`flex min-h-dvh items-center justify-center bg-gray-950 text-gray-100`}
+          className={`flex min-h-dvh flex-col items-center justify-center bg-gray-950 text-gray-100`}
         >
           {children}
         </div>
