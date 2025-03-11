@@ -16,11 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <main
-          className={`min-h-screen overflow-hidden bg-gray-950 text-gray-100`}
+        <div
+          className={`flex min-h-dvh items-center justify-center bg-gray-950 text-gray-100`}
         >
           {children}
-        </main>
+        </div>
         <Analytics />
       </body>
     </html>

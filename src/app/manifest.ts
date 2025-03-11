@@ -2,10 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Work Buddies by Axolotl-Logic",
-    short_name: "Work Buddies",
-    description:
-      "Alternate between work and rest with people across the world.",
+    name: "Axolotl Time",
+    short_name: "Axolotl Time",
+    description: "Work and party with folk across the universe.",
     start_url: "/",
     display: "standalone",
     background_color: "#06050d",
