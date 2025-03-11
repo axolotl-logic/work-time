@@ -57,7 +57,6 @@ function useUserId(): string {
 }
 
 export default function Page() {
-  const loadedAt = useMemo(() => Date.now(), []);
   const [periodTime, setPeriodTime] = useState(0);
   const userId = useUserId();
 
@@ -73,16 +72,16 @@ export default function Page() {
     ? 10 * MINUTE
     : breakLengthUser;
 
-  const synced = params.get("sync") === "on";
+  const startTimeUser = Number(params.get("startTime"));
+  const startTime = Number.isNaN(startTimeUser) ? 0 : startTimeUser;
 
   const calculatePeriod = useCallback(() => {
-    const startTime = synced ? 0 : loadedAt;
     const period = workLength + breakLength;
     const now = Date.now();
     const periodsSinceEpoch = (now - startTime) / period;
 
     return (periodsSinceEpoch - Math.floor(periodsSinceEpoch)) * period;
-  }, [workLength, breakLength, loadedAt, synced]);
+  }, [startTime, workLength, breakLength]);
 
   const inverseTime = useMemo(() => {
     if (periodTime > workLength) {
@@ -111,7 +110,7 @@ export default function Page() {
   }>({ count: 0, status: "loading" });
 
   const syncWithServer = useCallback(() => {
-    ping(userId, workLength, breakLength)
+    ping(userId, workLength, breakLength, startTime)
       .then(({ buddiesCount }) =>
         setOthers((oldOthers) => ({
           ...oldOthers,
@@ -126,7 +125,7 @@ export default function Page() {
           count: 0,
         })),
       );
-  }, [userId, breakLength, workLength, setOthers]);
+  }, [userId, breakLength, workLength, startTime, setOthers]);
 
   useInterval(syncWithServer, 1000 * 60 * 10);
   useEffect(syncWithServer, [syncWithServer]);

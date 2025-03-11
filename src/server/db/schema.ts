@@ -2,7 +2,13 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
-import { integer, pgTableCreator, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  bigint,
+  integer,
+  pgTableCreator,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -26,4 +32,5 @@ export const announces = createTable("announaces", {
   pingedCount: integer("pinged_count").default(0).notNull(),
   workLength: integer("work_length").default(0).notNull(),
   breakLength: integer("break_length").default(0).notNull(),
+  startTime: bigint({ mode: "number" }),
 });

@@ -1,0 +1,1 @@
+ALTER TABLE "perpetual-sprint_announaces" ADD COLUMN "start_time" integer DEFAULT 0 NOT NULL;

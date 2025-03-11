@@ -15,6 +15,20 @@
       "when": 1741706008205,
       "tag": "0001_modern_sister_grimm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741724075026,
+      "tag": "0002_outstanding_monster_badoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741724319647,
+      "tag": "0003_third_wraith",
+      "breakpoints": true
     }
   ]
 }

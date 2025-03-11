@@ -9,6 +9,7 @@ export async function ping(
   unsafeId: string,
   workLength: number,
   breakLength: number,
+  startTime: number,
 ): Promise<{ buddiesCount: number }> {
   const sessionCutoff = new Date(Date.now() - 1000 * 60 * 60);
   const { data: id, error } = z.string().uuid().safeParse(unsafeId);
@@ -22,6 +23,7 @@ export async function ping(
     .values({
       workLength,
       breakLength,
+      startTime,
       id: id,
       pingedCount: 1,
       lastPingedAt: now,
@@ -31,6 +33,7 @@ export async function ping(
       set: {
         workLength,
         breakLength,
+        startTime,
         pingedCount: sql`${announces.pingedCount} + 1`,
         lastPingedAt: new Date(),
       },
@@ -44,6 +47,7 @@ export async function ping(
         gt(announces.lastPingedAt, sessionCutoff),
         eq(announces.workLength, workLength),
         eq(announces.breakLength, breakLength),
+        eq(announces.startTime, startTime),
       ),
     );
   if (!buddies?.[0]) {

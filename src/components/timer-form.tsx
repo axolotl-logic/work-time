@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 // react-hook-form
 import { useForm } from "react-hook-form";
 
@@ -32,9 +33,20 @@ const DEFAULT_FORM = {
 };
 
 export function TimerForm() {
-  const { register } = useForm<typeof DEFAULT_FORM>({
+  const [startTime, setStartTime] = useState<number>(0);
+  const { register, watch } = useForm<typeof DEFAULT_FORM>({
     defaultValues: DEFAULT_FORM,
   });
+
+  const sync = watch("sync");
+
+  useEffect(() => {
+    if (sync) {
+      setStartTime(0);
+    } else {
+      setStartTime(Date.now());
+    }
+  }, [sync]);
 
   return (
     <form className="flex flex-col gap-4" method="GET" action="/timer">
@@ -73,6 +85,7 @@ export function TimerForm() {
             {...register("sync", { required: true })}
           />
         </label>
+        <input name="startTime" type="hidden" value={startTime} />
       </div>
       <div>
         <button className="btn btn-primary btn-sm" type="submit">
