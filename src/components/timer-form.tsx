@@ -65,8 +65,8 @@ export function TimerForm() {
             ))}
           </select>
         </label>
-        <label className="flex justify-between gap-1">
-          <span className="label">Sync with others?</span>
+        <label className="flex flex-wrap gap-4">
+          <span className="label">Sync with universe?</span>
           <input
             className="checkbox"
             type="checkbox"
