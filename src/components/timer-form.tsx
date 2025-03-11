@@ -26,8 +26,8 @@ const TIME_PRESETS = [
 ].map((minutes) => minutes * 60 * 1000);
 
 const DEFAULT_FORM = {
-  workLength: 50,
-  breakLength: 15,
+  workLength: TIME_PRESETS[5],
+  breakLength: TIME_PRESETS[0],
   sync: true,
 };
 
@@ -41,7 +41,10 @@ export function TimerForm() {
       <div className="flex flex-wrap gap-2">
         <label className="select select-primary">
           <span className="label">Work for</span>
-          <select {...register("workLength", { required: true })}>
+          <select
+            defaultValue={DEFAULT_FORM.workLength}
+            {...register("workLength", { required: true })}
+          >
             {TIME_PRESETS.map((num) => (
               <option key={num} value={num}>
                 {timeInWords(num)}
@@ -51,7 +54,10 @@ export function TimerForm() {
         </label>
         <label className="select">
           <span className="label">Break for</span>
-          <select {...register("breakLength", { required: true })}>
+          <select
+            defaultValue={DEFAULT_FORM.breakLength}
+            {...register("breakLength", { required: true })}
+          >
             {TIME_PRESETS.map((num) => (
               <option key={num} value={num}>
                 {timeInWords(num)}

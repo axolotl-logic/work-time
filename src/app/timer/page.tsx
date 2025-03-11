@@ -59,7 +59,8 @@ function useUserId(): string {
 // TODO: A button that says "Hearts!" that people can spam.
 
 export default function HomePage() {
-  const [now, setNow] = useState(0);
+  const firstNow = useMemo(() => Date.now(), []);
+  const [now, setNow] = useState(firstNow);
   const userId = useUserId();
 
   const params = useSearchParams();

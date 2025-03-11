@@ -10,14 +10,16 @@ export default function HomePage() {
         <h1 className="border-secondary border-t-2 border-solid pt-6">
           Get ready to work!
         </h1>
-        <div className="flex items-center self-center">
-          <Image
-            className="hidden sm:block"
-            alt="adorable axolotl"
-            src="/mascot.png"
-            width="240"
-            height="393"
-          />
+        <div className="flex items-center">
+          <div>
+            <Image
+              className="hidden sm:block"
+              alt="adorable axolotl"
+              src="/mascot-medium.png"
+              width="600"
+              height="409"
+            />
+          </div>
           <div className="max-w-md">
             <TimerForm />
           </div>
