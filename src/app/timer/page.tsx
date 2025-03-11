@@ -56,9 +56,7 @@ function useUserId(): string {
   return userId;
 }
 
-// TODO: A button that says "Hearts!" that people can spam.
-
-export default function HomePage() {
+export default function Page() {
   const loadedAt = useMemo(() => Date.now(), []);
   const [periodTime, setPeriodTime] = useState(0);
   const userId = useUserId();
