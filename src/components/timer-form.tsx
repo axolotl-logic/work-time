@@ -65,14 +65,14 @@ export function TimerForm() {
             ))}
           </select>
         </label>
-        <div className="flex justify-between gap-1">
+        <label className="flex justify-between gap-1">
           <span className="label">Sync with others?</span>
           <input
             className="checkbox"
             type="checkbox"
             {...register("sync", { required: true })}
           />
-        </div>
+        </label>
       </div>
       <div>
         <button className="btn btn-primary btn-sm" type="submit">

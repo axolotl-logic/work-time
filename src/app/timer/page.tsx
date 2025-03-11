@@ -59,8 +59,8 @@ function useUserId(): string {
 // TODO: A button that says "Hearts!" that people can spam.
 
 export default function HomePage() {
-  const firstNow = useMemo(() => Date.now(), []);
-  const [now, setNow] = useState(firstNow);
+  const loadedAt = useMemo(() => Date.now(), []);
+  const [periodTime, setPeriodTime] = useState(0);
   const userId = useUserId();
 
   const params = useSearchParams();
@@ -75,14 +75,18 @@ export default function HomePage() {
     ? 10 * MINUTE
     : breakLengthUser;
 
-  const periodTime = useMemo(() => {
+  const synced = params.get("sync") === "on";
+
+  const calculatePeriod = useCallback(() => {
+    const startTime = synced ? 0 : loadedAt;
     const period = workLength + breakLength;
-    const periodsSinceEpoch = now / period;
+    const now = Date.now();
+    const periodsSinceEpoch = (now - startTime) / period;
 
     return (periodsSinceEpoch - Math.floor(periodsSinceEpoch)) * period;
-  }, [now, workLength, breakLength]);
+  }, [workLength, breakLength, loadedAt, synced]);
 
-  const time = useMemo(() => {
+  const inverseTime = useMemo(() => {
     if (periodTime > workLength) {
       return periodTime - workLength;
     }
@@ -94,14 +98,14 @@ export default function HomePage() {
   }, [periodTime, workLength]);
 
   const sectionLength = status === "work" ? workLength : breakLength;
-  const progress = (time / sectionLength) * 100;
+  const progress = (inverseTime / sectionLength) * 100;
 
   const { hours, minutes, seconds } = useMemo(() => {
-    const countdown = sectionLength - time;
+    const countdown = sectionLength - inverseTime;
     return splitTimeMs(countdown);
-  }, [time, sectionLength]);
+  }, [sectionLength, inverseTime]);
 
-  useInterval(() => setNow(Date.now()), 50);
+  useInterval(() => setPeriodTime(calculatePeriod()), 50);
 
   const [others, setOthers] = useState<{
     count: number;
