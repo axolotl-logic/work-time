@@ -103,7 +103,11 @@ export default function Page() {
     return splitTimeMs(countdown);
   }, [sectionLength, inverseTime]);
 
-  useInterval(() => setPeriodTime(calculatePeriod()), 50);
+  useInterval(() => {
+    if (Date.now() - loadedAt > 100) {
+      setPeriodTime(calculatePeriod());
+    }
+  }, 50);
 
   const [others, setOthers] = useState<{
     count: number;
