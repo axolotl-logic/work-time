@@ -1,10 +1,13 @@
 import type { MetadataRoute } from "next";
 
+export const AppName = "Axolotl time";
+export const AppDescription = "Work and party with folk across the universe.";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Axolotl Time",
+    name: AppName,
     short_name: "Axolotl Time",
-    description: "Work and party with folk across the universe.",
+    description: AppDescription,
     start_url: "/",
     display: "standalone",
     background_color: "#06050d",
