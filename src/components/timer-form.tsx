@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type MouseEventHandler, useState } from "react";
 
 import { useLiveQuery } from "dexie-react-hooks";
 
@@ -12,6 +12,7 @@ import { timeInWords } from "~/lib/time";
 import { Timer } from "./timer";
 import { db } from "~/client/db";
 import { useUserId } from "~/hooks/useUserId";
+import { handleError } from "~/lib/error";
 
 const TIME_PRESETS = [
   // 10 minutes
@@ -51,7 +52,7 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
     return await db.timer.orderBy("createdAt").last();
   });
 
-  const { register, watch, handleSubmit } = useForm<FormValues>({
+  const { register, watch } = useForm<FormValues>({
     defaultValues: {
       breakLength: timer?.breakLength ?? DEFAULT_FORM.breakLength,
       workLength: timer?.workLength ?? DEFAULT_FORM.workLength,
@@ -60,17 +61,13 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
   });
 
   const sync = watch("sync");
+  const breakLength = watch("breakLength");
+  const workLength = watch("workLength");
 
-  const startTime = useMemo(() => {
-    if (sync) {
-      return 0;
-    } else {
-      return Date.now();
-    }
-  }, [sync]);
-
-  const onSubmit = handleSubmit(async ({ workLength, breakLength }, e) => {
+  const onSubmit: MouseEventHandler<HTMLButtonElement> = (e) => {
     e?.preventDefault();
+
+    const startTime = sync ? 0 : Date.now();
 
     const timer = {
       userId,
@@ -80,12 +77,10 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
       createdAt: Date.now(),
     };
 
-    await db.timer.add(timer);
+    db.timer.add(timer).catch(handleError);
 
-    const url = `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
-    window.history.pushState(null, "", url);
     setShowTimer(true);
-  });
+  };
 
   const onClose = () => {
     setShowTimer(false);
@@ -94,12 +89,7 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
 
   return (
     <>
-      <form
-        className="flex flex-col gap-4"
-        method="GET"
-        onSubmit={onSubmit}
-        action="/timer"
-      >
+      <div className="flex flex-col gap-4">
         <div className="flex flex-wrap gap-2">
           <label className="select select-primary">
             <span className="label">Work for</span>
@@ -135,14 +125,13 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
               {...register("sync", { required: true })}
             />
           </label>
-          <input name="startTime" type="hidden" value={startTime} />
         </div>
         <div>
-          <button className="btn btn-primary btn-sm" type="submit">
+          <button onClick={onSubmit} className="btn btn-primary btn-sm">
             Start
           </button>
         </div>
-      </form>
+      </div>
       {showTimer && <Timer onClose={() => onClose()} />}
     </>
   );
