@@ -2,6 +2,10 @@ const msPerSecond = 1000;
 const msPerMinute = msPerSecond * 60;
 const msPerHour = msPerMinute * 60;
 
+export const SECOND = msPerSecond;
+export const MINUTE = msPerMinute;
+export const HOUR = msPerHour;
+
 interface Time {
   hours: number;
   minutes: number;

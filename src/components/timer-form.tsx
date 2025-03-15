@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+
+import { useLiveQuery } from "dexie-react-hooks";
+
 // react-hook-form
 import { useForm } from "react-hook-form";
 
 // Ours - Utils
 import { timeInWords } from "~/lib/time";
+import { Timer } from "./timer";
+import { db } from "~/client/db";
+import { useUserId } from "~/hooks/useUserId";
 
 const TIME_PRESETS = [
   // 10 minutes
@@ -27,71 +33,117 @@ const TIME_PRESETS = [
 ].map((minutes) => minutes * 60 * 1000);
 
 const DEFAULT_FORM = {
-  workLength: TIME_PRESETS[5],
-  breakLength: TIME_PRESETS[0],
+  workLength: TIME_PRESETS[5]!,
+  breakLength: TIME_PRESETS[0]!,
   sync: true,
 };
 
-export function TimerForm() {
-  const [startTime, setStartTime] = useState<number>(0);
-  const { register, watch } = useForm<typeof DEFAULT_FORM>({
-    defaultValues: DEFAULT_FORM,
+type FormValues = typeof DEFAULT_FORM;
+
+interface TimerFormProps {
+  defaultShowTimer?: boolean;
+}
+
+export function TimerForm({ defaultShowTimer }: TimerFormProps) {
+  const userId = useUserId();
+  const [showTimer, setShowTimer] = useState(!!defaultShowTimer);
+  const timer = useLiveQuery(async () => {
+    return await db.timer.orderBy("createdAt").last();
+  });
+
+  const { register, watch, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      breakLength: timer?.breakLength ?? DEFAULT_FORM.breakLength,
+      workLength: timer?.workLength ?? DEFAULT_FORM.workLength,
+      sync: true,
+    },
   });
 
   const sync = watch("sync");
 
-  useEffect(() => {
+  const startTime = useMemo(() => {
     if (sync) {
-      setStartTime(0);
+      return 0;
     } else {
-      setStartTime(Date.now());
+      return Date.now();
     }
   }, [sync]);
 
+  const onSubmit = handleSubmit(async ({ workLength, breakLength }, e) => {
+    e?.preventDefault();
+
+    const timer = {
+      userId,
+      workLength: Number(workLength),
+      breakLength: Number(breakLength),
+      startTime: Number(startTime),
+      createdAt: Date.now(),
+    };
+
+    await db.timer.add(timer);
+
+    const url = `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
+    window.history.pushState(null, "", url);
+    setShowTimer(true);
+  });
+
+  const onClose = () => {
+    setShowTimer(false);
+    window.history.pushState(null, "", "/");
+  };
+
   return (
-    <form className="flex flex-col gap-4" method="GET" action="/timer">
-      <div className="flex flex-wrap gap-2">
-        <label className="select select-primary">
-          <span className="label">Work for</span>
-          <select
-            defaultValue={DEFAULT_FORM.workLength}
-            {...register("workLength", { required: true })}
-          >
-            {TIME_PRESETS.map((num) => (
-              <option key={num} value={num}>
-                {timeInWords(num)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="select">
-          <span className="label">Break for</span>
-          <select
-            defaultValue={DEFAULT_FORM.breakLength}
-            {...register("breakLength", { required: true })}
-          >
-            {TIME_PRESETS.map((num) => (
-              <option key={num} value={num}>
-                {timeInWords(num)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="flex flex-wrap gap-4">
-          <span className="label">Sync with universe?</span>
-          <input
-            className="checkbox"
-            type="checkbox"
-            {...register("sync", { required: true })}
-          />
-        </label>
-        <input name="startTime" type="hidden" value={startTime} />
-      </div>
-      <div>
-        <button className="btn btn-primary btn-sm" type="submit">
-          Start
-        </button>
-      </div>
-    </form>
+    <>
+      <form
+        className="flex flex-col gap-4"
+        method="GET"
+        onSubmit={onSubmit}
+        action="/timer"
+      >
+        <div className="flex flex-wrap gap-2">
+          <label className="select select-primary">
+            <span className="label">Work for</span>
+            <select
+              defaultValue={DEFAULT_FORM.workLength}
+              {...register("workLength", { required: true })}
+            >
+              {TIME_PRESETS.map((num) => (
+                <option key={num} value={num}>
+                  {timeInWords(num)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="select">
+            <span className="label">Break for</span>
+            <select
+              defaultValue={DEFAULT_FORM.breakLength}
+              {...register("breakLength", { required: true })}
+            >
+              {TIME_PRESETS.map((num) => (
+                <option key={num} value={num}>
+                  {timeInWords(num)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="flex flex-wrap gap-4">
+            <span className="label">Sync with universe?</span>
+            <input
+              className="checkbox"
+              type="checkbox"
+              {...register("sync", { required: true })}
+            />
+          </label>
+          <input name="startTime" type="hidden" value={startTime} />
+        </div>
+        <div>
+          <button className="btn btn-primary btn-sm" type="submit">
+            Start
+          </button>
+        </div>
+      </form>
+      {showTimer && <Timer onClose={() => onClose()} />}
+    </>
   );
 }
