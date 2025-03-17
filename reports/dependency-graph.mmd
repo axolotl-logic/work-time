@@ -1,0 +1,40 @@
+flowchart LR
+
+subgraph 0["__tests__"]
+1["timer-page.test.tsx"]
+end
+subgraph 2["src"]
+subgraph 3["client"]
+subgraph 4["components"]
+5["timer-page.tsx"]
+6["visual-timer.tsx"]
+end
+7["db.ts"]
+subgraph 8["hooks"]
+9["useUserId.ts"]
+end
+end
+subgraph A["lib"]
+B["time.ts"]
+end
+subgraph C["server"]
+subgraph D["actions"]
+E["index.ts"]
+end
+subgraph F["db"]
+G["schema.ts"]
+H["index.ts"]
+end
+I["env.ts"]
+end
+end
+1-->5
+5-->6
+5-->7
+5-->9
+5-->B
+5-->E
+E-->G
+E-->H
+H-->G
+H-->I
