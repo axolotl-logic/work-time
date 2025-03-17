@@ -16,9 +16,9 @@ npm install
 npm run dev
 ```
 
-## Dependency graph
+## Project Health [![Tests](https://github.com/axolotl-logic/axolotl-time/actions/workflows/test.yml/badge.svg)](https://github.com/axolotl-logic/axolotl-time/actions/workflows/test.yml) [![Lints](https://github.com/axolotl-logic/axolotl-time/actions/workflows/lint.yml/badge.svg)](https://github.com/axolotl-logic/axolotl-time/actions/workflows/lint.yml) [![dependency validation](https://github.com/axolotl-logic/axolotl-time/actions/workflows/deps.yml/badge.svg)](https://github.com/axolotl-logic/axolotl-time/actions/workflows/deps.yml)
 
-![dependency-graph](/reports/dep-graph.svg)
+[![dependency-graph](/reports/dependency-graph.svg)](/reports/dependency-graph.mmd)
 
 ## See Also
 

@@ -10,6 +10,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "deps:graph": "npx depcruise --exclude '^node_modules' --output-type dot src | dot -T svg > reports/dependency-graph.svg && npx depcruise --exclude '^node_modules' --output-type mermaid > reports/dependency-graph.mmd",
     "dev": "next dev --turbo",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
