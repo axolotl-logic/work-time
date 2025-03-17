@@ -13,7 +13,7 @@
     "deps:graph": "npx depcruise --exclude '^node_modules' --output-type dot src | dot -T svg > reports/dependency-graph.svg && npx depcruise --exclude '^node_modules' --output-type mermaid src > reports/dependency-graph.mmd",
     "deps:graph-tests": "npx depcruise --exclude '^node_modules' --output-type dot __tests__ | dot -T svg > reports/dependency-graph-tests.svg && npx depcruise --exclude '^node_modules' --output-type mermaid __tests__  > reports/dependency-graph.mmd",
     "dev": "next dev --turbo",
-    "lint": "SKIP_ENV_VALIDATION=true next lint",
+    "lint": "next lint",
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "start": "next start",
@@ -23,6 +23,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.10",
     "@radix-ui/react-slot": "^1.1.2",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
@@ -30,6 +31,7 @@
     "dexie": "^4.0.11",
     "dexie-react-hooks": "^1.1.7",
     "drizzle-orm": "^0.40.0",
+    "esbuild": "^0.25.1",
     "geist": "^1.3.0",
     "lucide-react": "^0.479.0",
     "mermaid": "^11.5.0",
@@ -75,6 +77,9 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"
+  },
+  "overrides": {
+    "esbuild": "^0.25.1"
   },
   "packageManager": "npm@10.9.2"
 }
