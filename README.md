@@ -16,6 +16,10 @@ npm install
 npm run dev
 ```
 
+## Dependency graph
+
+![dependency-graph](/reports/dep-graph.svg)
+
 ## See Also
 
 [Organization's Site](https://axolotl-logic.io/)

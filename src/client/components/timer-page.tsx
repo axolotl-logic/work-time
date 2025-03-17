@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import useInterval from "use-interval";
 import { ping } from "~/server/actions";
 import { MINUTE, padTime, splitTimeMs } from "~/lib/time";
-import { useUserId } from "~/hooks/useUserId";
-import { VisualTimer } from "~/components/visual-timer";
+import { useUserId } from "~/client/hooks/useUserId";
+import { VisualTimer } from "~/client/components/visual-timer";
 import { db } from "~/client/db";
 import { useLiveQuery } from "dexie-react-hooks";
 

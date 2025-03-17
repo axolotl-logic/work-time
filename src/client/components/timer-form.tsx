@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 // Ours - Utils
 import { timeInWords } from "~/lib/time";
 import { db } from "~/client/db";
-import { useUserId } from "~/hooks/useUserId";
+import { useUserId } from "~/client/hooks/useUserId";
 import { handleError } from "~/lib/error";
 
 const TIME_PRESETS = [

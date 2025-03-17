@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { db } from "~/client/db";
-import { Router } from "~/components/router";
-import { useUserId } from "~/hooks/useUserId";
+import { Router } from "~/client/components/router";
+import { useUserId } from "~/client/hooks/useUserId";
 import { handleError } from "~/lib/error";
 import { MINUTE } from "~/lib/time";
 
