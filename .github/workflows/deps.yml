@@ -35,8 +35,5 @@ jobs:
           # Default: depends on the default_author input
           author_email: m@axolotl-logic.io
 
-          # Additional arguments for the git commit command. The --message argument is already set by the message input.
-          # Default: ''
-          commit: "docs: update dependency graph"
           tag_push: '--force'
 
