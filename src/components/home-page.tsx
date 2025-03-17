@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { TimerForm } from "./timer-form";
 import { Link } from "./ui/link";
+import { useEffect } from "react";
 
-interface HomePageProps {
-  timerOpen?: boolean;
-}
+export function HomePage() {
+  useEffect(() => {
+    if (window.location.href != "/") {
+      window.history.pushState(null, "", "/");
+    }
+  });
 
-export function HomePage({ timerOpen }: HomePageProps) {
   return (
     <main className="prose flex flex-col p-8">
       <h1 className="text-neutral-200">Get ready to work!</h1>
@@ -22,7 +25,7 @@ export function HomePage({ timerOpen }: HomePageProps) {
           />
         </div>
         <div className="max-w-md">
-          <TimerForm defaultShowTimer={timerOpen} />
+          <TimerForm />
         </div>
       </div>
       <p className="border-l-2 border-solid border-l-white pl-2 text-justify text-neutral-200">

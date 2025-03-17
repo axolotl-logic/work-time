@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { AppDescription, AppName } from "./manifest";
+import { Router } from "~/components/router";
 
 export const metadata: Metadata = {
   title: AppName,

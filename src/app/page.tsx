@@ -1,5 +1,5 @@
-import { HomePage } from "~/components/home-page";
+import { Router } from "~/components/router";
 
 export default function Page() {
-  return <HomePage />;
+  return <Router defaultPage="home" />;
 }

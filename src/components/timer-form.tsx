@@ -1,6 +1,6 @@
 "use client";
 
-import { type MouseEventHandler, useState } from "react";
+import { type MouseEventHandler } from "react";
 
 import { useLiveQuery } from "dexie-react-hooks";
 
@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 
 // Ours - Utils
 import { timeInWords } from "~/lib/time";
-import { Timer } from "./timer";
 import { db } from "~/client/db";
 import { useUserId } from "~/hooks/useUserId";
 import { handleError } from "~/lib/error";
@@ -41,13 +40,8 @@ const DEFAULT_FORM = {
 
 type FormValues = typeof DEFAULT_FORM;
 
-interface TimerFormProps {
-  defaultShowTimer?: boolean;
-}
-
-export function TimerForm({ defaultShowTimer }: TimerFormProps) {
+export function TimerForm() {
   const userId = useUserId();
-  const [showTimer, setShowTimer] = useState(!!defaultShowTimer);
   const timer = useLiveQuery(async () => {
     return await db.timer.orderBy("createdAt").last();
   });
@@ -79,12 +73,12 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
 
     db.timer.add(timer).catch(handleError);
 
-    setShowTimer(true);
-  };
-
-  const onClose = () => {
-    setShowTimer(false);
-    window.history.pushState(null, "", "/");
+    db.nav
+      .add({
+        page: "timer",
+        createdAt: Date.now(),
+      })
+      .catch(handleError);
   };
 
   return (
@@ -132,7 +126,6 @@ export function TimerForm({ defaultShowTimer }: TimerFormProps) {
           </button>
         </div>
       </div>
-      {showTimer && <Timer onClose={() => onClose()} />}
     </>
   );
 }

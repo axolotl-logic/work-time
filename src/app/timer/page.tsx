@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { db } from "~/client/db";
-import { HomePage } from "~/components/home-page";
+import { Router } from "~/components/router";
 import { useUserId } from "~/hooks/useUserId";
 import { handleError } from "~/lib/error";
 import { MINUTE } from "~/lib/time";
@@ -37,5 +37,5 @@ export default function Page() {
       .catch(handleError);
   }, [userId, workLength, breakLength, startTime]);
 
-  return <HomePage timerOpen={true} />;
+  return <Router defaultPage="timer" />;
 }
