@@ -67,7 +67,7 @@ export function TimerPage() {
   useInterval(syncTime, 50);
 
   if (!timer) {
-    return <div></div>;
+    return <main role="main">Loading...</main>;
   }
 
   const progress = getProgress({ periodTime }, timer);
@@ -78,7 +78,8 @@ export function TimerPage() {
   );
 
   return (
-    <div
+    <main
+      role="main"
       className={`animate-fade-in fixed top-0 left-0 z-10 flex size-full h-screen max-h-dvh flex-col items-center justify-center gap-8 bg-zinc-950`}
     >
       <div className="mt-auto">
@@ -110,7 +111,7 @@ export function TimerPage() {
       >
         home
       </a>
-    </div>
+    </main>
   );
 }
 function getProgress(

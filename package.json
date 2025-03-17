@@ -10,7 +10,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "deps:graph": "npx depcruise --exclude '^node_modules' --output-type dot src | dot -T svg > reports/dependency-graph.svg && npx depcruise --exclude '^node_modules' --output-type mermaid > reports/dependency-graph.mmd",
+    "deps:graph": "npx depcruise --exclude '^node_modules' --output-type dot src | dot -T svg > reports/dependency-graph.svg && npx depcruise --exclude '^node_modules' --output-type mermaid src > reports/dependency-graph.mmd",
+    "deps:graph-tests": "npx depcruise --exclude '^node_modules' --output-type dot __tests__ | dot -T svg > reports/dependency-graph-tests.svg && npx depcruise --exclude '^node_modules' --output-type mermaid __tests__  > reports/dependency-graph.mmd",
     "dev": "next dev --turbo",
     "lint": "SKIP_ENV_VALIDATION=true next lint",
     "lint:fix": "next lint --fix",
@@ -23,7 +24,6 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
-    "@t3-oss/env-nextjs": "^0.10.1",
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -71,7 +71,7 @@
     "tailwindcss": "^4.0.12",
     "typescript": "^5.5.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.9"
   },
   "ct3aMetadata": {
     "initVersion": "7.38.1"

@@ -23,6 +23,7 @@ jobs:
       - run: sudo apt-get install graphviz
       - run: npm ci
       - run: npm run deps:graph
+      - run: npm run deps:graph-tests
       - uses: EndBug/add-and-commit@v9
         with:
           add: 'reports'
