@@ -1,4 +1,7 @@
-name: Dep Graph 
+name: Generate Dep Graph
+
+permissions:
+  contents: write
 
 on:
   push:
