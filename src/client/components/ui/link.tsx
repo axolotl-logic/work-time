@@ -1,19 +1,27 @@
-import NextLink from "next/link";
-import { type ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
+import { type Route, routeToUrl } from "../router";
+
+import { navigate } from "~/client/nav";
 
 export function Link({
-  href,
+  route,
   children,
 }: {
-  href: string;
+  route: Route;
   children: ReactNode;
 }) {
+  const href = useMemo(() => routeToUrl(route), [route]);
+
   return (
-    <NextLink
-      className="text-blue-400 underline hover:text-purple-400"
+    <a
+      onClick={async (e) => {
+        e.preventDefault();
+        navigate(route);
+      }}
       href={href}
+      className="p-4 text-blue-400 underline hover:cursor-pointer hover:text-purple-400"
     >
       {children}
-    </NextLink>
+    </a>
   );
 }

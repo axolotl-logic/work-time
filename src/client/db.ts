@@ -3,7 +3,6 @@ import Dexie, { type EntityTable } from "dexie";
 interface TimerState {
   id: number;
   createdAt: number;
-  userId: string;
   workLength: number;
   breakLength: number;
   startTime: number;
@@ -14,6 +13,7 @@ interface NavigationState {
   id: number;
   createdAt: number;
   page: "home" | "timer";
+  sessionId: string;
 }
 
 const db = new Dexie("AppState") as Dexie & {
@@ -21,18 +21,9 @@ const db = new Dexie("AppState") as Dexie & {
   nav: EntityTable<NavigationState, "id">;
 };
 
-db.version(1).stores({
-  timer: "++id,userId,workLength,breakLength,startTime,createdAt",
-});
-
-db.version(2).stores({
-  timer: "++id,userId,workLength,breakLength,startTime,createdAt",
-  nav: "++id,page,createdAt",
-});
-
-db.version(3).stores({
-  timer: "++id,userId,workLength,breakLength,startTime,createdAt,others",
-  nav: "++id,page,createdAt",
+db.version(5).stores({
+  timer: "++id,workLength,breakLength,startTime,createdAt,others",
+  nav: "++id,page,createdAt,sessionId",
 });
 
 export type { TimerState };

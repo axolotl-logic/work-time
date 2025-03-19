@@ -1,8 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useInterval from "use-interval";
 import { padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
-import { db } from "~/client/db";
+import { db } from "../db";
+import { useUserId } from "../hooks/useUserId";
+import { handleError } from "~/lib/error";
+import { Link } from "./ui/link";
 
 interface TimerPageProps {
   workLength: number;
@@ -26,6 +29,18 @@ export function TimerPage({
   }, [workLength, breakLength, startTime]);
   useInterval(syncTime, 50);
 
+  useEffect(() => {
+    db.timer
+      .add({
+        workLength,
+        breakLength,
+        startTime,
+        others: 0,
+        createdAt: Date.now(),
+      })
+      .catch(handleError);
+  }, [workLength, breakLength, startTime]);
+
   const progress = getProgress(
     { periodTime },
     { workLength, breakLength, startTime },
@@ -40,7 +55,7 @@ export function TimerPage({
   return (
     <main
       role="main"
-      className={`animate-fade-in fixed top-0 left-0 z-10 flex size-full h-screen max-h-dvh flex-col items-center justify-center gap-8 bg-zinc-950`}
+      className={`animate-fade-in-slow fixed top-0 left-0 z-10 flex size-full h-screen max-h-dvh flex-col items-center justify-center gap-8 bg-zinc-950 p-8`}
     >
       <div className="mt-auto">
         <VisualTimer status={status} progress={progress} />
@@ -57,16 +72,9 @@ export function TimerPage({
           </span>
         </p>
       </div>
-      <a
-        onClick={async (e) => {
-          e.preventDefault();
-          await db.nav.add({ page: "home", createdAt: Date.now() });
-          window.history.pushState(null, "", "/");
-        }}
-        className="self-start p-4 text-blue-400 underline hover:cursor-pointer hover:text-purple-400"
-      >
-        home
-      </a>
+      <div className="self-start">
+        <Link route={{ page: "home" }}>Home</Link>
+      </div>
     </main>
   );
 }

@@ -4,13 +4,16 @@ import { handleError } from "~/lib/error";
 import { ping } from "~/server/actions";
 import { MINUTE } from "~/lib/time";
 import { useInterval } from "usehooks-ts";
+import { useUserId } from "./useUserId";
 
 export function useSync(timer?: TimerState) {
+  const userId = useUserId();
+
   const syncWithServer = useCallback(() => {
     if (!timer) {
       return;
     }
-    const { userId, workLength, breakLength, startTime } = timer;
+    const { workLength, breakLength, startTime } = timer;
 
     ping(userId, workLength, breakLength, startTime)
       .then(({ buddiesCount }) => {
@@ -19,7 +22,7 @@ export function useSync(timer?: TimerState) {
       .catch((err) => {
         handleError(err);
       });
-  }, [timer]);
+  }, [userId, timer]);
 
   useInterval(syncWithServer, 10 * MINUTE);
   useEffect(() => syncWithServer(), [syncWithServer]);

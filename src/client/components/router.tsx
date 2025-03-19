@@ -7,13 +7,22 @@ import { HomePage } from "./home-page";
 import { useSync } from "../hooks/sync";
 import { useEventListener } from "usehooks-ts";
 import { fail } from "assert";
-import { handleError } from "~/lib/error";
 import { useUserId } from "../hooks/useUserId";
 import { LoadingPage } from "./loading-page";
+import { navigate } from "../nav";
 
-type PagePath = "home" | "timer";
+export type Route =
+  | {
+      page: "home";
+    }
+  | {
+      page: "timer";
+      workLength: number;
+      breakLength: number;
+      startTime: number;
+    };
 
-export function Router({ defaultPage }: { defaultPage: PagePath }) {
+export function Router({ defaultRoute }: { defaultRoute: Route }) {
   const userId = useUserId();
 
   const nav = useLiveQuery(async () => {
@@ -31,23 +40,21 @@ export function Router({ defaultPage }: { defaultPage: PagePath }) {
   useEventListener("popstate", () => {
     switch (window.location.pathname) {
       case "/":
-        db.nav.add({ page: "home", createdAt: Date.now() }).catch(handleError);
+        navigate({ page: "home" });
         break;
       case "/timer":
-        db.nav.add({ page: "timer", createdAt: Date.now() }).catch(handleError);
-
         const params = new URLSearchParams(document.location.search);
 
-        db.timer
-          .add({
-            userId,
-            workLength: Number(params.get("workLength")),
-            breakLength: Number(params.get("breakLength")),
-            startTime: Number(params.get("startTime")),
-            others: 0,
-            createdAt: Date.now(),
-          })
-          .catch(handleError);
+        const timer = {
+          userId,
+          workLength: Number(params.get("workLength")),
+          breakLength: Number(params.get("breakLength")),
+          startTime: Number(params.get("startTime")),
+          others: 0,
+          createdAt: Date.now(),
+        };
+
+        navigate({ page: "timer", ...timer });
 
         break;
       default:
@@ -55,7 +62,7 @@ export function Router({ defaultPage }: { defaultPage: PagePath }) {
     }
   });
 
-  switch (nav?.page ?? defaultPage) {
+  switch (nav?.page ?? defaultRoute.page) {
     case "home":
       return <HomePage />;
     case "timer":
@@ -79,4 +86,14 @@ export function Router({ defaultPage }: { defaultPage: PagePath }) {
   }
 
   return <LoadingPage />;
+}
+
+export function routeToUrl(route: Route): string {
+  switch (route.page) {
+    case "home":
+      return "/";
+    case "timer":
+      const { workLength, breakLength, startTime } = route;
+      return `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
+  }
 }

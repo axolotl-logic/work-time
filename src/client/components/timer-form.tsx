@@ -12,6 +12,7 @@ import { timeInWords } from "~/lib/time";
 import { db } from "~/client/db";
 import { useUserId } from "~/client/hooks/useUserId";
 import { handleError } from "~/lib/error";
+import { navigate } from "../nav";
 
 const TIME_PRESETS = [
   // 10 minutes
@@ -63,28 +64,18 @@ export function TimerForm() {
 
     const startTime = sync ? 0 : Date.now();
 
-    db.timer
-      .add({
-        userId,
-        workLength: Number(workLength),
-        breakLength: Number(breakLength),
-        startTime: Number(startTime),
-        createdAt: Date.now(),
-        others: 0,
-      })
-      .catch(handleError);
+    const timer = {
+      userId,
+      workLength: Number(workLength),
+      breakLength: Number(breakLength),
+      startTime: Number(startTime),
+      createdAt: Date.now(),
+      others: 0,
+    };
 
-    db.nav
-      .add({
-        page: "timer",
-        createdAt: Date.now(),
-      })
-      .catch(handleError);
+    db.timer.add(timer).catch(handleError);
 
-    const url = `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
-    if (window.location.href != url) {
-      window.history.pushState(null, "", url);
-    }
+    navigate({ page: "timer", ...timer });
   };
 
   return (

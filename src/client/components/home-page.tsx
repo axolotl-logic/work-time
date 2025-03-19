@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { TimerForm } from "./timer-form";
-import { Link } from "./ui/link";
+
+import { LuExternalLink } from "react-icons/lu";
 
 export function HomePage() {
   return (
@@ -30,9 +31,17 @@ export function HomePage() {
         Be guided alongside others through short sprints of work and rest by our
         minimalist visual timer. Best of all? It works offline and will always
         be free and open source!
-        <br />
-        <Link href="https://github.com/sponsors/axolotl-logic">Donate</Link> to
-        help sustain us.
+      </p>
+      <p className="flex gap-2">
+        <a
+          href={"https://github.com/sponsors/axolotl-logic"}
+          className="flex text-blue-400 underline hover:cursor-pointer hover:text-purple-400"
+          target="_blank"
+        >
+          Donate
+          <LuExternalLink className="size-3" />
+        </a>
+        {"to help sustain us."}
       </p>
     </main>
   );
