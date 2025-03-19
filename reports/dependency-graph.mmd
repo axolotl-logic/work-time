@@ -1,40 +1,69 @@
 flowchart LR
 
 subgraph 0["__tests__"]
-1["timer-page.test.tsx"]
+1["router.test.tsx"]
+R["setup.ts"]
+S["timer-page.test.tsx"]
 end
 subgraph 2["src"]
 subgraph 3["client"]
 subgraph 4["components"]
-5["timer-page.tsx"]
-6["visual-timer.tsx"]
+5["router.tsx"]
+L["home-page.tsx"]
+M["timer-form.tsx"]
+subgraph N["ui"]
+O["link.tsx"]
 end
-7["db.ts"]
-subgraph 8["hooks"]
-9["useUserId.ts"]
+P["timer-page.tsx"]
+Q["visual-timer.tsx"]
 end
+subgraph 7["hooks"]
+8["sync.ts"]
+K["useUserId.ts"]
+end
+9["db.ts"]
 end
 subgraph A["lib"]
-B["time.ts"]
+B["error.ts"]
+C["time.ts"]
 end
-subgraph C["server"]
-subgraph D["actions"]
-E["index.ts"]
+subgraph D["server"]
+subgraph E["actions"]
+F["index.ts"]
 end
-subgraph F["db"]
-G["schema.ts"]
-H["index.ts"]
+subgraph G["db"]
+H["schema.ts"]
+I["index.ts"]
 end
-I["env.ts"]
+J["env.ts"]
 end
 end
+6["assert"]
 1-->5
-5-->6
-5-->7
+5-->8
+5-->K
+5-->L
+5-->P
 5-->9
 5-->B
-5-->E
-E-->G
-E-->H
-H-->G
-H-->I
+5-->6
+8-->9
+8-->B
+8-->C
+8-->F
+F-->H
+F-->I
+I-->H
+I-->J
+L-->M
+L-->O
+M-->9
+M-->K
+M-->B
+M-->C
+P-->Q
+P-->9
+P-->C
+R-->6
+S-->P
+S-->C
