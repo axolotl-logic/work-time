@@ -1,4 +1,4 @@
-name: Generate Dep Graph
+name: Dep Lints
 
 permissions:
   contents: write
@@ -10,7 +10,7 @@ on:
     branches: ["main"]
 
 jobs:
-  gen-deps:
+  lint-deps:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,6 +22,7 @@ jobs:
 
       - run: sudo apt-get install graphviz
       - run: npm ci
+      - run: npm run deps:lint
       - run: npm run deps:graph
       - run: npm run deps:graph-tests
       - uses: EndBug/add-and-commit@v9
