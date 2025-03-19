@@ -1,4 +1,4 @@
-name: Dep Lints
+name: DepCruiser
 
 permissions:
   contents: write
