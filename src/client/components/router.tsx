@@ -9,6 +9,7 @@ import { useEventListener } from "usehooks-ts";
 import { fail } from "assert";
 import { handleError } from "~/lib/error";
 import { useUserId } from "../hooks/useUserId";
+import { LoadingPage } from "./loading-page";
 
 type PagePath = "home" | "timer";
 
@@ -77,5 +78,5 @@ export function Router({ defaultPage }: { defaultPage: PagePath }) {
       );
   }
 
-  return <div id="router-loading"></div>;
+  return <LoadingPage />;
 }
