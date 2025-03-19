@@ -61,6 +61,7 @@ export function TimerPage({
         onClick={async (e) => {
           e.preventDefault();
           await db.nav.add({ page: "home", createdAt: Date.now() });
+          window.history.pushState(null, "", "/");
         }}
         className="self-start p-4 text-blue-400 underline hover:cursor-pointer hover:text-purple-400"
       >
