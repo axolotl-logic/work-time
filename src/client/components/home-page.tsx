@@ -1,17 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import { TimerForm } from "./timer-form";
 import { Link } from "./ui/link";
-import { useEffect } from "react";
 
 export function HomePage() {
-  useEffect(() => {
-    if (window.location.href != "/") {
-      window.history.pushState(null, "", "/");
-    }
-  });
-
   return (
     <main role="main" className="prose flex flex-col p-8">
       <h1 className="text-neutral-200">Get ready to work!</h1>

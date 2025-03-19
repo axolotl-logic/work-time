@@ -63,15 +63,16 @@ export function TimerForm() {
 
     const startTime = sync ? 0 : Date.now();
 
-    const timer = {
-      userId,
-      workLength: Number(workLength),
-      breakLength: Number(breakLength),
-      startTime: Number(startTime),
-      createdAt: Date.now(),
-    };
-
-    db.timer.add(timer).catch(handleError);
+    db.timer
+      .add({
+        userId,
+        workLength: Number(workLength),
+        breakLength: Number(breakLength),
+        startTime: Number(startTime),
+        createdAt: Date.now(),
+        others: 0,
+      })
+      .catch(handleError);
 
     db.nav
       .add({
@@ -79,6 +80,11 @@ export function TimerForm() {
         createdAt: Date.now(),
       })
       .catch(handleError);
+
+    const url = `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
+    if (window.location.href != url) {
+      window.history.pushState(null, "", url);
+    }
   };
 
   return (

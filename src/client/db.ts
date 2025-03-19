@@ -7,7 +7,7 @@ interface TimerState {
   workLength: number;
   breakLength: number;
   startTime: number;
-  others?: number;
+  others: number;
 }
 
 interface NavigationState {
@@ -27,6 +27,11 @@ db.version(1).stores({
 
 db.version(2).stores({
   timer: "++id,userId,workLength,breakLength,startTime,createdAt",
+  nav: "++id,page,createdAt",
+});
+
+db.version(3).stores({
+  timer: "++id,userId,workLength,breakLength,startTime,createdAt,others",
   nav: "++id,page,createdAt",
 });
 

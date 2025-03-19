@@ -32,9 +32,11 @@ export default function Page() {
         workLength,
         breakLength,
         startTime,
+        others: 0,
         createdAt: Date.now(),
       })
       .catch(handleError);
+    db.nav.add({ page: "timer", createdAt: Date.now() }).catch(handleError);
   }, [userId, workLength, breakLength, startTime]);
 
   return <Router defaultPage="timer" />;
