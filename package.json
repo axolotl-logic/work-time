@@ -21,7 +21,8 @@
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@babel/runtime": "^7.26.10",
@@ -60,6 +61,7 @@
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-istanbul": "^3.0.9",
     "daisyui": "^5.0.3",
     "dependency-cruiser": "^16.10.0",
     "drizzle-kit": "^0.30.5",
