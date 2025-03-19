@@ -1,6 +1,5 @@
 import "~/client/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { AppDescription, AppName } from "./manifest";
@@ -15,7 +14,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en">
       <body>
         <div
           className={`dark flex min-h-dvh flex-col items-center justify-center bg-zinc-950`}
