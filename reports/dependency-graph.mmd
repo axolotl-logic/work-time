@@ -2,73 +2,81 @@ flowchart LR
 
 subgraph 0["__tests__"]
 1["router.test.tsx"]
-S["setup.ts"]
-T["timer-page.test.tsx"]
+T["setup.ts"]
+U["timer-page.test.tsx"]
 end
 subgraph 2["src"]
 subgraph 3["client"]
 subgraph 4["components"]
 5["router.tsx"]
-L["home-page.tsx"]
-M["timer-form.tsx"]
-subgraph N["ui"]
-O["link.tsx"]
+M["home-page.tsx"]
+N["timer-form.tsx"]
+O["loading-page.tsx"]
+P["timer-page.tsx"]
+subgraph Q["ui"]
+R["link.tsx"]
 end
-P["loading-page.tsx"]
-Q["timer-page.tsx"]
-R["visual-timer.tsx"]
+S["visual-timer.tsx"]
 end
 subgraph 7["hooks"]
 8["sync.ts"]
-K["useUserId.ts"]
+9["useUserId.ts"]
 end
-9["db.ts"]
+A["db.ts"]
+L["nav.ts"]
 end
-subgraph A["lib"]
-B["error.ts"]
-C["time.ts"]
+subgraph B["lib"]
+C["error.ts"]
+D["time.ts"]
 end
-subgraph D["server"]
-subgraph E["actions"]
-F["index.ts"]
+subgraph E["server"]
+subgraph F["actions"]
+G["index.ts"]
 end
-subgraph G["db"]
-H["schema.ts"]
-I["index.ts"]
+subgraph H["db"]
+I["schema.ts"]
+J["index.ts"]
 end
-J["env.ts"]
+K["env.ts"]
 end
 end
 6["assert"]
 1-->5
-1-->9
-1-->B
-1-->C
+1-->D
 5-->8
-5-->K
-5-->L
-5-->P
-5-->Q
 5-->9
-5-->B
+5-->L
+5-->M
+5-->O
+5-->P
+5-->A
 5-->6
 8-->9
-8-->B
+8-->A
 8-->C
-8-->F
-F-->H
-F-->I
-I-->H
-I-->J
-L-->M
-L-->O
-M-->9
-M-->K
-M-->B
-M-->C
-Q-->R
-Q-->9
-Q-->C
-S-->6
-T-->Q
-T-->C
+8-->D
+8-->G
+G-->I
+G-->J
+J-->I
+J-->K
+L-->5
+L-->A
+L-->C
+M-->N
+N-->L
+N-->A
+N-->9
+N-->C
+N-->D
+P-->A
+P-->9
+P-->R
+P-->S
+P-->C
+P-->D
+R-->5
+R-->L
+T-->6
+U-->P
+U-->D
