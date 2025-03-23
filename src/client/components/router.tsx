@@ -19,9 +19,25 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
     return await db.nav.orderBy("createdAt").last();
   });
 
-  const timer = useLiveQuery(async () => {
+  let timer:
+    | {
+        workLength: number;
+        breakLength: number;
+        startTime: number;
+        others: number;
+      }
+    | undefined = useLiveQuery(async () => {
     return await db.timer.orderBy("createdAt").last();
   });
+
+  if (timer === undefined && defaultRoute.page === "timer") {
+    timer = {
+      workLength: defaultRoute.workLength,
+      breakLength: defaultRoute.breakLength,
+      startTime: defaultRoute.startTime,
+      others: 0,
+    };
+  }
 
   // Synchronize our local data store with the remote.
   // while page is active.
@@ -56,17 +72,18 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
     case "home":
       return <HomePage />;
     case "timer":
-      if (timer) {
-        return (
-          <TimerPage
-            workLength={timer.workLength}
-            breakLength={timer.breakLength}
-            startTime={timer.startTime}
-            others={timer.others}
-          />
-        );
+      if (!timer) {
+        return <LoadingPage />;
       }
-      break;
+
+      return (
+        <TimerPage
+          workLength={timer.workLength}
+          breakLength={timer.breakLength}
+          startTime={timer.startTime}
+          others={timer.others}
+        />
+      );
     default:
       return (
         <p role="alert" className="prose">
@@ -74,6 +91,4 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
         </p>
       );
   }
-
-  return <LoadingPage />;
 }
