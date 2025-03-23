@@ -4,23 +4,13 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "~/client/db";
 import { TimerPage } from "./timer-page";
 import { HomePage } from "./home-page";
-import { useSync } from "../hooks/sync";
+import { useSync } from "~/client/hooks/sync";
 import { useEventListener } from "usehooks-ts";
 import { fail } from "assert";
-import { useUserId } from "../hooks/useUserId";
+import { useUserId } from "~/client/hooks/useUserId";
 import { LoadingPage } from "./loading-page";
-import { navigate } from "../nav";
-
-export type Route =
-  | {
-      page: "home";
-    }
-  | {
-      page: "timer";
-      workLength: number;
-      breakLength: number;
-      startTime: number;
-    };
+import { navigate } from "~/client/nav";
+import { type Route } from "~/client/routes";
 
 export function Router({ defaultRoute }: { defaultRoute: Route }) {
   const userId = useUserId();
@@ -86,14 +76,4 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
   }
 
   return <LoadingPage />;
-}
-
-export function routeToUrl(route: Route): string {
-  switch (route.page) {
-    case "home":
-      return "/";
-    case "timer":
-      const { workLength, breakLength, startTime } = route;
-      return `/timer?workLength=${workLength}&breakLength=${breakLength}&startTime=${startTime}`;
-  }
 }

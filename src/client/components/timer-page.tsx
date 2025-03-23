@@ -3,7 +3,6 @@ import useInterval from "use-interval";
 import { padTime, splitTimeMs } from "~/lib/time";
 import { VisualTimer } from "~/client/components/visual-timer";
 import { db } from "../db";
-import { useUserId } from "../hooks/useUserId";
 import { handleError } from "~/lib/error";
 import { Link } from "./ui/link";
 

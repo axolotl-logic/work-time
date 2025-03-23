@@ -2,8 +2,9 @@
 
 import { db } from "~/client/db";
 import { handleError } from "~/lib/error";
-import { type Route, routeToUrl } from "./components/router";
+import { routeToUrl } from "~/client/routes";
 import { v4 } from "uuid";
+import { type Route } from "./routes";
 
 const SESSION_ID_KEY = "client/nav.ts:sessionId";
 

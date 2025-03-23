@@ -1,5 +1,5 @@
 import { useMemo, type ReactNode } from "react";
-import { type Route, routeToUrl } from "../router";
+import { type Route, routeToUrl } from "~/client/routes";
 
 import { navigate } from "~/client/nav";
 
