@@ -1,6 +1,6 @@
 import Dexie, { type EntityTable } from "dexie";
 
-interface TimerState {
+export interface TimerState {
   id: number;
   createdAt: number;
   workLength: number;
@@ -9,7 +9,7 @@ interface TimerState {
   others: number;
 }
 
-interface NavigationState {
+export interface NavigationState {
   id: number;
   createdAt: number;
   page: "home" | "timer";
@@ -26,5 +26,4 @@ db.version(5).stores({
   nav: "++id,page,createdAt,sessionId",
 });
 
-export type { TimerState };
 export { db };
