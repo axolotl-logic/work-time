@@ -4,7 +4,7 @@ import "fake-indexeddb/auto";
 import { afterEach, beforeEach, vi } from "vitest";
 
 vi.spyOn(console, "error").mockImplementation(() => {
-  //  fail("console.error call detected");
+  fail("console.error call detected");
 });
 
 beforeEach(() => {
@@ -15,5 +15,7 @@ beforeEach(() => {
 afterEach(() => {
   // restoring date after each test run
   vi.useRealTimers();
+
+  // Prevent duplicate renders of components
   cleanup();
 });
