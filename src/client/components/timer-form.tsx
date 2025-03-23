@@ -79,50 +79,48 @@ export function TimerForm() {
   };
 
   return (
-    <>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap gap-2">
-          <label className="select select-primary">
-            <span className="label">Work for</span>
-            <select
-              defaultValue={DEFAULT_FORM.workLength}
-              {...register("workLength", { required: true })}
-            >
-              {TIME_PRESETS.map((num) => (
-                <option key={num} value={num}>
-                  {timeInWords(num)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="select">
-            <span className="label">Break for</span>
-            <select
-              defaultValue={DEFAULT_FORM.breakLength}
-              {...register("breakLength", { required: true })}
-            >
-              {TIME_PRESETS.map((num) => (
-                <option key={num} value={num}>
-                  {timeInWords(num)}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-wrap gap-4">
-            <span className="label">Sync with universe?</span>
-            <input
-              className="checkbox"
-              type="checkbox"
-              {...register("sync", { required: true })}
-            />
-          </label>
-        </div>
-        <div>
-          <button onClick={onSubmit} className="btn btn-primary btn-sm">
-            Start
-          </button>
-        </div>
+    <div role="form" className="flex flex-col gap-4">
+      <div className="flex flex-wrap gap-2">
+        <label className="select select-primary">
+          <span className="label">Work for</span>
+          <select
+            defaultValue={DEFAULT_FORM.workLength}
+            {...register("workLength", { required: true })}
+          >
+            {TIME_PRESETS.map((num) => (
+              <option key={num} value={num}>
+                {timeInWords(num)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="select">
+          <span className="label">Break for</span>
+          <select
+            defaultValue={DEFAULT_FORM.breakLength}
+            {...register("breakLength", { required: true })}
+          >
+            {TIME_PRESETS.map((num) => (
+              <option key={num} value={num}>
+                {timeInWords(num)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-wrap gap-4">
+          <span className="label">Sync with universe?</span>
+          <input
+            className="checkbox"
+            type="checkbox"
+            {...register("sync", { required: true })}
+          />
+        </label>
       </div>
-    </>
+      <div>
+        <button onClick={onSubmit} className="btn btn-primary btn-sm">
+          Start
+        </button>
+      </div>
+    </div>
   );
 }

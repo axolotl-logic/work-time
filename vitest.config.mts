@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
-    setupFiles: "__tests__/setup.ts",
+    setupFiles: "src/test-setup.ts",
     coverage: {
       reportsDirectory: "./reports/coverage",
       provider: "istanbul",

@@ -15,6 +15,7 @@ export function VisualTimer({
       break;
   }
 
+  //  TODO: Replace with CSS Animation
   return (
     <div
       className={`radial-progress text-5xl ${radialColor}`}
@@ -25,7 +26,7 @@ export function VisualTimer({
           "--thickness": "35px",
         } as React.CSSProperties
       }
-      role="progressbar"
+      role="figure"
     >
       {status}
     </div>
