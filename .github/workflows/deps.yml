@@ -1,4 +1,4 @@
-name: DepCruiser
+name: Dependency Sanity
 
 permissions:
   contents: write
@@ -22,9 +22,7 @@ jobs:
 
       - run: sudo apt-get install graphviz
       - run: npm ci
-      - run: npm run lint:deps
       - run: npm run deps:graph
-      - run: npm run deps:graph-tests
       - uses: EndBug/add-and-commit@v9
         with:
           add: 'reports'
@@ -38,4 +36,4 @@ jobs:
           author_email: m@axolotl-logic.io
 
           tag_push: '--force'
-
+      - run: npm run lint:deps
