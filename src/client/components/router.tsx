@@ -8,15 +8,26 @@ import { useSync } from "~/client/hooks/sync";
 import { useEventListener } from "usehooks-ts";
 import { fail } from "assert";
 import { useUserId } from "~/client/hooks/useUserId";
-import { LoadingPage } from "./loading-page";
-import { navigate } from "~/client/nav";
+import { navigate, getSessionId } from "~/client/nav";
 import { type Route } from "~/client/routes";
+import { MINUTE } from "~/lib/time";
 
 export function Router({ defaultRoute }: { defaultRoute: Route }) {
   const userId = useUserId();
 
   const nav = useLiveQuery(async () => {
-    return await db.nav.orderBy("createdAt").last();
+    const rows = await db.nav
+      .where("sessionId")
+      .equals(getSessionId())
+      .sortBy("createdAt");
+
+    if (rows.length === 0) {
+      return {
+        page: defaultRoute.page,
+      };
+    }
+
+    return rows[rows.length - 1];
   });
 
   let timer:
@@ -30,13 +41,22 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
     return await db.timer.orderBy("createdAt").last();
   });
 
-  if (timer === undefined && defaultRoute.page === "timer") {
-    timer = {
-      workLength: defaultRoute.workLength,
-      breakLength: defaultRoute.breakLength,
-      startTime: defaultRoute.startTime,
-      others: 0,
-    };
+  if (timer === undefined) {
+    if (defaultRoute.page === "timer") {
+      timer = {
+        workLength: defaultRoute.workLength,
+        breakLength: defaultRoute.breakLength,
+        startTime: defaultRoute.startTime,
+        others: 0,
+      };
+    } else {
+      timer = {
+        workLength: 50 * MINUTE,
+        breakLength: 10 * MINUTE,
+        startTime: 0,
+        others: 0,
+      };
+    }
   }
 
   // Synchronize our local data store with the remote.
@@ -72,10 +92,6 @@ export function Router({ defaultRoute }: { defaultRoute: Route }) {
     case "home":
       return <HomePage />;
     case "timer":
-      if (!timer) {
-        return <LoadingPage />;
-      }
-
       return (
         <TimerPage
           workLength={timer.workLength}

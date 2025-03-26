@@ -8,16 +8,20 @@ import { type Route } from "./routes";
 
 const SESSION_ID_KEY = "client/nav.ts:sessionId";
 
-export function navigate(route: Route) {
+export function getSessionId(): string {
   let sessionId = window.sessionStorage.getItem(SESSION_ID_KEY);
   if (!sessionId) {
     sessionId = v4();
     window.sessionStorage.setItem(SESSION_ID_KEY, sessionId);
   }
 
+  return sessionId;
+}
+
+export function navigate(route: Route) {
   db.nav
     .add({
-      sessionId,
+      sessionId: getSessionId(),
       page: route.page,
       createdAt: Date.now(),
     })

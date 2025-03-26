@@ -1,13 +1,16 @@
 import { cleanup } from "@testing-library/react";
 import { fail } from "assert";
 import "fake-indexeddb/auto";
-import { afterEach, beforeEach, vi } from "vitest";
+import { afterEach, beforeEach, expect, vi } from "vitest";
+import { db } from "./client/db";
 
 vi.spyOn(console, "error").mockImplementation(() => {
   fail("console.error call detected");
 });
 
-beforeEach(() => {
+beforeEach(async () => {
+  await db.delete({ disableAutoOpen: false });
+
   // tell vitest we use mocked time
   vi.useFakeTimers();
 });
