@@ -22,7 +22,9 @@ E["timer-form.tsx"]
 N["timer-page.tsx"]
 subgraph O["ui"]
 P["link.tsx"]
-16["button.tsx"]
+16["button.test.tsx"]
+17["button.tsx"]
+19["link.test.tsx"]
 end
 Q["visual-timer.tsx"]
 11["home-page.test.tsx"]
@@ -30,7 +32,7 @@ Q["visual-timer.tsx"]
 13["router.test.tsx"]
 14["timer-form.test.tsx"]
 15["timer-page.test.tsx"]
-18["visual-timer.test.tsx"]
+1A["visual-timer.test.tsx"]
 end
 F["nav.ts"]
 G["routes.ts"]
@@ -39,13 +41,13 @@ subgraph K["hooks"]
 L["useUserId.ts"]
 R["sync.ts"]
 end
-19["db.test.ts"]
-1A["nav.test.ts"]
+1B["db.test.ts"]
+1C["nav.test.ts"]
 end
 subgraph I["lib"]
 J["error.ts"]
 M["time.ts"]
-17["utils.ts"]
+18["utils.ts"]
 end
 subgraph S["server"]
 subgraph T["actions"]
@@ -57,7 +59,7 @@ X["index.ts"]
 end
 Y["env.ts"]
 end
-1B["test-setup.ts"]
+1D["test-setup.ts"]
 end
 C["assert"]
 2-->6
@@ -110,8 +112,10 @@ X-->Y
 15-->N
 15-->M
 16-->17
-18-->Q
-19-->H
-1A-->F
+17-->18
+19-->P
+1A-->Q
 1B-->H
-1B-->C
+1C-->F
+1D-->H
+1D-->C
