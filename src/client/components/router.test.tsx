@@ -1,4 +1,4 @@
-import { expect, test, describe, beforeEach } from "vitest";
+import { expect, test, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Router } from "~/client/components/router";
 import { HOUR } from "~/lib/time";

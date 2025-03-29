@@ -1,6 +1,13 @@
 import { expect, test } from "vitest";
 
-import { navigate } from "./nav";
+import { getSessionId, navigate } from "./nav";
+
+test("getSessionId should set and stabalize", () => {
+  const expected = getSessionId();
+  const actual = getSessionId();
+
+  expect(expected).toEqual(actual);
+});
 
 test("navigate should lead home", () => {
   navigate({
